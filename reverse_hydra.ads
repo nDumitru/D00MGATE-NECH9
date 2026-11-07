@@ -119,7 +119,7 @@ package Reverse_Hydra is
                            (Engine : in out Engine_State);
 
    procedure Print_Status  (Engine : Engine_State;
-                            Layer  : Positive := 0);
+                            Layer  : Natural := 0);
 
    -- ── Split count by type ──────────────────────────────────────
    function Split_Count (BT : Break_Type) return Positive;

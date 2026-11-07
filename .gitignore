@@ -6,3 +6,10 @@ build/
 *.o
 *.ali
 *.bexch
+core/master_key.ads
+core/master_key.py
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/

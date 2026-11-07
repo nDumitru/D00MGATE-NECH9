@@ -290,7 +290,7 @@ package body Reverse_Hydra is
    end Check_Notifications;
 
    -- ── Print layer status ────────────────────────────────────────
-   procedure Print_Status (Engine : Engine_State; Layer : Positive := 0) is
+   procedure Print_Status (Engine : Engine_State; Layer : Natural := 0) is
       procedure Print_Layer (L : Positive) is
          LS : constant Layer_State := Engine.Layers (L);
       begin
