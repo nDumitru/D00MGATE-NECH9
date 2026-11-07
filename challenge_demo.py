@@ -25,7 +25,7 @@ except ImportError:
     class Style:
         RESET_ALL=""
 
-BANNER = """
+BANNER = r"""
  ____   ___   ___  __  __  ____    _  _____  _____       _   _  _____  ____ _  _   ___  
 |  _ \ / _ \ / _ \|  \/  |/ ___|  / \|_   _| | ____|    | \ | || ____||  __| || | / _ \ 
 | | | | | | | | | | |\/| | |  _  / _ \ | |   |  _|      |  \| ||  _|  | |   | || || (_) |
@@ -36,6 +36,8 @@ BANNER = """
 """
 
 def _demo_luhn_check(number: str) -> bool:
+    if not number.isdigit() or len(number) < 2:
+        return False
     digits = [int(d) for d in number if d.isdigit()]
     digits.reverse()
     total = 0
@@ -147,4 +149,7 @@ def main():
         levels[args.level]()
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except (KeyboardInterrupt, EOFError):
+        print("\n[GATE] Session closed.")

@@ -4,7 +4,10 @@ Author: Dumitru Nechita | License: D00MGATE-NECH9 Proprietary v1.0
 "You can see the gate. You cannot dial it without the address."
 """
 import hashlib, time, os, argparse, sys
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..","core"))
+_HERE = os.path.dirname(os.path.abspath(__file__))
+# Private key first (core/, git-ignored), then the public demo stub (keystub/).
+sys.path[:0] = [os.path.join(_HERE, "core"), os.path.join(_HERE, "..", "core"),
+                os.path.join(_HERE, "keystub")]
 import master_key as MK
 from genesis import OMEGA_49_DOMAIN
 
@@ -20,6 +23,8 @@ BANNER = r"""
 """
 
 def luhn_check(number):
+    if not str(number).isdigit() or len(str(number)) < 2:
+        return False
     digits = [int(d) for d in str(number) if d.isdigit()]
     digits.reverse()
     total = sum((d*2-9 if d*2>9 else d*2) if i%2==1 else d for i,d in enumerate(digits))
@@ -151,4 +156,7 @@ def main():
     print("D00MGATE-NECH9 | 'The gate is open. The address is mine.' - Dumitru Nechita")
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except (KeyboardInterrupt, EOFError):
+        print("\n[GATE] Session closed.")

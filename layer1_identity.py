@@ -5,7 +5,10 @@ Dynamic Luhn token (30s window) + Spooner Behavioral Guard (47 vectors).
 PUBLIC STUB - Interface definitions only. Implementation: REDACTED.
 """
 import hashlib, time, os, sys
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..","core"))
+_HERE = os.path.dirname(os.path.abspath(__file__))
+# Private key first (core/, git-ignored), then the public demo stub (keystub/).
+sys.path[:0] = [os.path.join(_HERE, "core"), os.path.join(_HERE, "..", "core"),
+                os.path.join(_HERE, "keystub")]
 import master_key as MK
 from genesis import OMEGA_49_DOMAIN
 from abc import ABC, abstractmethod

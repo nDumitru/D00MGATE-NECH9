@@ -12,7 +12,10 @@
 # Run:
 #   ./build/doomgate_demo
 
+set -e
+cd "$(dirname "$0")"
 mkdir -p build/obj
-gprbuild -P doomgate.gpr
+# Private key: DOOMGATE_KEY_DIR=core ./build.sh  (uses core/master_key.ads/.adb)
+gprbuild -P doomgate.gpr -XDOOMGATE_KEY_DIR="${DOOMGATE_KEY_DIR:-keystub}"
 echo ""
 echo "Run: ./build/doomgate_demo"

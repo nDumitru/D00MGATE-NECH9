@@ -1,13 +1,18 @@
 -- =============================================================
 -- D00MGATE-NECH9 -- GNAT Project File
 -- Author: Dumitru Nechita
--- Compile: gnatmake -P doomgate.gpr
+-- Compile: gprbuild -P doomgate.gpr
 -- Run:     ./build/doomgate_demo
 -- =============================================================
 
 project Doomgate is
 
-   for Source_Dirs use ("core", "src", "demo");
+   --  Where the Master_Key package comes from:
+   --    keystub (default) -> public stub, key read from D00MGATE_MASTER_KEY
+   --    core              -> your private core/master_key.ads/.adb (git-ignored)
+   Key_Dir := external ("DOOMGATE_KEY_DIR", "keystub");
+
+   for Source_Dirs use (".", Key_Dir);
    for Object_Dir  use "build/obj";
    for Exec_Dir    use "build";
    for Main        use ("doomgate_demo.adb");

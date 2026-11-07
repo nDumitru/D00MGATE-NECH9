@@ -38,6 +38,8 @@ BANNER = f"""{Fore.CYAN}
 # ── UTILITIES ──────────────────────────────────────────────────────────────
 
 def _luhn_check(number: str) -> bool:
+    if not number.isdigit() or len(number) < 2:
+        return False
     digits = [int(d) for d in number if d.isdigit()]
     digits.reverse()
     total = sum(
@@ -260,4 +262,7 @@ def main():
     print(f"─────────────────────────────────────────────────{Style.RESET_ALL}\n")
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except (KeyboardInterrupt, EOFError):
+        print("\n[GATE] Session closed.")

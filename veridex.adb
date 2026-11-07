@@ -134,6 +134,32 @@ package body Veridex is
    -- PILLAR 2 -- ASYMMETRIC TEMPORALITY
    -- ═══════════════════════════════════════════════════════════
 
+   -- ── OMEGA-49 sequence: 7 values from domain { -7..-1, 1..7 } ──
+   type Omega_Value is range -7 .. 7;
+   type Omega_Sequence is array (1 .. 7) of Omega_Value;
+
+   function Get_Omega_Sequence (Epoch : Long_Long_Integer)
+                                return Omega_Sequence
+   is
+      Domain : constant array (0 .. 13) of Omega_Value :=
+        (-7, -6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6, 7);
+      Seq    : Omega_Sequence;
+   begin
+      for I in Seq'Range loop
+         declare
+            H : constant String :=
+                  GNAT.SHA256.Digest
+                     (Master_Key.Value & ":" &
+                      Long_Long_Integer'Image (Epoch) & ":" &
+                      Integer'Image (I));
+            B : constant Natural := Natural'Value ("16#" & H (1 .. 2) & "#");
+         begin
+            Seq (I) := Domain (B mod Domain'Length);
+         end;
+      end loop;
+      return Seq;
+   end Get_Omega_Sequence;
+
    function TimeLock_Generate (State     : Veridex_State;
                                Layer_Num : Positive)
                                return Time_Lock_Key

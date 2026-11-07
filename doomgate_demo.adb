@@ -252,7 +252,7 @@ begin
    if not Master_Key.Is_Ready then
       Master_Key.Warn ("main");
       Put_Line ("  Running in DEMO MODE.");
-      Put_Line ("  Edit core/master_key.adb to activate.");
+      Put_Line ("  Set D00MGATE_MASTER_KEY (or core/master_key.adb) to activate.");
    else
       Put_Line ("  Master Key: SET [OK]");
    end if;
